@@ -3,7 +3,7 @@ price of items in your inventory:
 
 ![](screenshot.gif)
 
-Compatible with Stardew Valley 1.3+ on Linux, Mac, and Windows. Translated into Chinese, English,
+Compatible with Stardew Valley 1.4+ on Linux, Mac, and Windows. Translated into Chinese, English,
 French, German, Japanese, Korean, Portuguese, Russian, and Spanish.
 
 ## Install
