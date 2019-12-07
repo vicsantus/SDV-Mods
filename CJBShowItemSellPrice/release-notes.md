@@ -1,6 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed text not updating for game language since 1.9.4.
+
 ## 1.9.4
 Released 26 November 2019 for SMAPI 3.0 or later. Updated by Pathoschild.
 
