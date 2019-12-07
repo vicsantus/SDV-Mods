@@ -114,23 +114,28 @@ namespace CJBShowItemSellPrice
         /// <param name="menu">The menu whose hovered item to find.</param>
         private Item GetItemFromMenu(IClickableMenu menu)
         {
-            // game menu
-            if (menu is GameMenu gameMenu)
+            switch (menu)
             {
-                IClickableMenu page = this.Helper.Reflection.GetField<List<IClickableMenu>>(gameMenu, "pages").GetValue()[gameMenu.currentTab];
-                if (page is InventoryPage)
-                    return this.Helper.Reflection.GetField<Item>(page, "hoveredItem").GetValue();
-                else if (page is CraftingPage)
-                    return this.Helper.Reflection.GetField<Item>(page, "hoverItem").GetValue();
+                // game menu
+                case GameMenu gameMenu:
+                    switch (gameMenu.pages[gameMenu.currentTab])
+                    {
+                        case InventoryPage page:
+                            return this.Helper.Reflection.GetField<Item>(page, "hoveredItem").GetValue();
+
+                        case CraftingPage page:
+                            return this.Helper.Reflection.GetField<Item>(page, "hoverItem").GetValue();
+                    }
+                    break;
+
+                // inventory UI
+                case MenuWithInventory inventoryMenu:
+                    return inventoryMenu.hoveredItem;
+
+                // CJB Item Spawner
+                case var _ when (menu.GetType().FullName == "CJBItemSpawner.Framework.ItemMenu"):
+                    return this.Helper.Reflection.GetField<Item>(menu, "HoveredItem").GetValue();
             }
-
-            // from inventory UI
-            else if (menu is MenuWithInventory inventoryMenu)
-                return inventoryMenu.hoveredItem;
-
-            // CJB mods
-            else if (menu.GetType().FullName == "CJBItemSpawner.Framework.ItemMenu")
-                return this.Helper.Reflection.GetField<Item>(menu, "HoveredItem").GetValue();
 
             return null;
         }
